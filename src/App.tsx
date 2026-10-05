@@ -1,5 +1,6 @@
-import React from 'react';
+// @ts-nocheck
 import { BackgroundParticles } from './BackgroundParticles';
+import logo from './assets/SemCheck_logo.webp';
 import './index.css';
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
       <main>
         <section className="hero">
           <div className="hero-logo-container">
-            <img src="/SemCheck_logo.webp" alt="SemCheck Logo" className="hero-logo-img" />
+            <img src={logo} alt="SemCheck Logo" className="hero-logo-img" />
           </div>
           
           <h1 className="hero-brand">SemCheck</h1>

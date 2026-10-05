@@ -1,5 +1,6 @@
-import React from 'react';
 
+import gradcap from './assets/gradcap.webp';
+import tickmark from './assets/tickmark.webp';
 const NUM_COLS = 5;
 const NUM_ROWS = 6;
 const TOTAL_PARTICLES = NUM_COLS * NUM_ROWS;
@@ -33,7 +34,7 @@ export function BackgroundParticles() {
           style={{ left: p.left, top: p.top }}
         >
           <img 
-            src={p.type === 'cap' ? '/gradcap.webp' : '/tickmark.webp'} 
+            src={p.type === 'cap' ? gradcap : tickmark} 
             alt="background pattern" 
           />
         </div>

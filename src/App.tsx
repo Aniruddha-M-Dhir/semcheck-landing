@@ -5,13 +5,13 @@ import logo from './assets/SemCheck_logo.webp';
 import appScreenshot from './assets/app-screenshot.png';
 import './index.css';
 
-// Real Professor Profiles from SemCheck App for Interactive Sandbox
+// Professor Profiles for Interactive Sandbox
 const PROFESSORS = [
   {
-    id: 'chemouni',
-    name: 'Elisabeth Chemouni',
+    id: 'prof-x',
+    name: 'Professor X',
     department: 'Mathematics',
-    avatar: 'EC',
+    avatar: 'PX',
     overallScore: 4.7,
     reviewCount: 34,
     course: 'MATH 226',
@@ -23,15 +23,15 @@ const PROFESSORS = [
       approachability: 5.0,
       retake: 5.0,
     },
-    sampleReview: "She is a great professor if you want to take a chill math class. Clear grading criteria and very approachable.",
+    sampleReview: "Professor X is a great professor if you want to take a chill math class. Clear grading criteria and very approachable.",
     tags: ['#ChillMathClass', '#ClearLectures', '#FairGrader', '#HighClarity'],
     summary: "Approachable and organized professor who explains concepts clearly with fair grading and a manageable course pace."
   },
   {
-    id: 'puder',
-    name: 'Arno Puder',
+    id: 'prof-y',
+    name: 'Professor Y',
     department: 'Computer Science',
-    avatar: 'AP',
+    avatar: 'PY',
     overallScore: 4.8,
     reviewCount: 46,
     course: 'CSC 413',
@@ -48,13 +48,13 @@ const PROFESSORS = [
     summary: "Challenging but rewarding software engineering curriculum with practical hands-on development experience."
   },
   {
-    id: 'kulkarni',
-    name: 'Anagha Kulkarni',
-    department: 'Computer Science',
-    avatar: 'AK',
+    id: 'prof-z',
+    name: 'Professor Z',
+    department: 'Biology',
+    avatar: 'PZ',
     overallScore: 4.6,
     reviewCount: 39,
-    course: 'CSC 510',
+    course: 'BIO 210',
     scores: {
       clarity: 4.7,
       grading: 4.5,
@@ -65,28 +65,28 @@ const PROFESSORS = [
     },
     sampleReview: "Very structured coursework with thorough lab exercises. Gives prompt feedback and holds helpful office hours.",
     tags: ['#StructuredSyllabus', '#HelpfulLabs', '#PromptFeedback', '#DedicatedMentor'],
-    summary: "Clear academic pacing and dedicated student guidance throughout complex computer science coursework."
+    summary: "Clear academic pacing and dedicated student guidance throughout complex coursework."
   }
 ];
 
-// Pre-set real review prompts for AI insight sandbox
+// Pre-set review prompts for AI insight sandbox
 const AI_SAMPLE_PROMPTS = [
   {
-    title: "Elisabeth Chemouni — MATH 226",
-    text: "She is a great professor if you want to take a chill math class. Homework directly mirrors exam questions and office hours are very welcoming.",
+    title: "Professor X — MATH 226",
+    text: "Professor X explains math concepts step-by-step with zero trick questions. Homework directly mirrors exam questions and office hours are very welcoming.",
     tags: ['#ChillMathClass', '#WelcomingOfficeHours', '#FairGrading', '#HighClarity'],
     summary: "Patient and encouraging teaching style with clear exam expectations and accessible support."
   },
   {
-    title: "Arno Puder — CSC 413",
+    title: "Professor Y — CSC 413",
     text: "Software Development milestones were challenging but gave real industry-grade experience. Detailed rubrics and constructive feedback on code submissions.",
     tags: ['#IndustryReady', '#ConstructiveFeedback', '#PracticalCoding', '#GreatLectures'],
     summary: "Demanding but highly practical coursework that prepares students for real-world software engineering."
   },
   {
-    title: "Anagha Kulkarni — CSC 510",
-    text: "Lectures break down complex algorithms into intuitive steps. Weekly assignments are well organized with fast grading turnaround.",
-    tags: ['#ClearAlgorithms', '#OrganizedPacing', '#FastGrading', '#HighLearningValue'],
+    title: "Professor Z — BIO 210",
+    text: "Lectures break down complex biological pathways into intuitive diagrams. Weekly assignments are well organized with fast grading turnaround.",
+    tags: ['#ClearLectures', '#OrganizedPacing', '#FastGrading', '#HighLearningValue'],
     summary: "Clear lectures and rapid homework turnaround create an engaging and structured learning environment."
   }
 ];

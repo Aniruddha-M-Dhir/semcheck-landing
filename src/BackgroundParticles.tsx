@@ -1,8 +1,8 @@
 
 import gradcap from './assets/gradcap.webp';
 import tickmark from './assets/tickmark.webp';
-const NUM_COLS = 5;
-const NUM_ROWS = 6;
+const NUM_COLS = 6;
+const NUM_ROWS = 8;
 const TOTAL_PARTICLES = NUM_COLS * NUM_ROWS;
 
 export function BackgroundParticles() {

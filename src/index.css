@@ -913,8 +913,14 @@ svg, ion-icon {
   font-size: 1.35rem;
   font-weight: 700;
   color: #FFFFFF;
-  margin-bottom: 1.25rem;
+  margin-bottom: 0.85rem;
   letter-spacing: -0.01em;
+}
+
+.benefit-card-desc {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
 }
 
 .benefit-contrast-block {

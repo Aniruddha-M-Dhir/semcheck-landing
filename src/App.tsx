@@ -351,10 +351,9 @@ function App() {
           <div className="section-container">
             <div className="section-header">
               <div className="tag-pill">Why SemCheck</div>
-              <h2 className="section-title">The Antidote to Broken Course Registration</h2>
+              <h2 className="section-title">Built for Real Students</h2>
               <p className="section-subtitle">
-                Legacy rating platforms are flooded with unverified bots, angry rants, and intrusive ads. 
-                SemCheck rebuilds campus trust from the ground up through cryptographic privacy.
+                Real reviews from verified classmates. No bots, no fake ratings, zero retaliation.
               </p>
             </div>
 
@@ -364,21 +363,10 @@ function App() {
                 <div className="benefit-icon-badge">
                   <ion-icon name="shield-checkmark"></ion-icon>
                 </div>
-                <h3 className="benefit-card-title">100% .edu Campus Verification</h3>
-                <div className="benefit-contrast-block">
-                  <div className="contrast-item">
-                    <span className="contrast-label old">The Frustrating Status Quo</span>
-                    <p className="contrast-text old">
-                      Public forums where random internet trolls, competitors, and bots post fake ratings.
-                    </p>
-                  </div>
-                  <div className="contrast-item">
-                    <span className="contrast-label outcome">The SemCheck Solution</span>
-                    <p className="contrast-text outcome">
-                      Every contributor must verify once via their official university email. Pure signal from registered students.
-                    </p>
-                  </div>
-                </div>
+                <h3 className="benefit-card-title">100% Verified</h3>
+                <p className="benefit-card-desc">
+                  Every reviewer is verified with their university .edu email. Only real students from your school can post.
+                </p>
               </div>
 
               {/* Card 2 */}
@@ -386,21 +374,10 @@ function App() {
                 <div className="benefit-icon-badge indigo">
                   <ion-icon name="eye-off"></ion-icon>
                 </div>
-                <h3 className="benefit-card-title">Cryptographic Anonymity</h3>
-                <div className="benefit-contrast-block">
-                  <div className="contrast-item">
-                    <span className="contrast-label old">The Frustrating Status Quo</span>
-                    <p className="contrast-text old">
-                      Constant anxiety that candid critiques could lead to grade retaliation or professor hostility.
-                    </p>
-                  </div>
-                  <div className="contrast-item">
-                    <span className="contrast-label outcome">The SemCheck Solution</span>
-                    <p className="contrast-text outcome">
-                      One-way salted verification hash. Secure database policies sever your identity from the review forever.
-                    </p>
-                  </div>
-                </div>
+                <h3 className="benefit-card-title">100% Anonymous</h3>
+                <p className="benefit-card-desc">
+                  Speak your mind without fear of retaliation. Your identity is never attached to your reviews.
+                </p>
               </div>
 
               {/* Card 3 */}
@@ -408,21 +385,10 @@ function App() {
                 <div className="benefit-icon-badge amber">
                   <ion-icon name="sparkles"></ion-icon>
                 </div>
-                <h3 className="benefit-card-title">9-Point Rubric & AI Insights</h3>
-                <div className="benefit-contrast-block">
-                  <div className="contrast-item">
-                    <span className="contrast-label old">The Frustrating Status Quo</span>
-                    <p className="contrast-text old">
-                      Superficial 1-to-5 star averages that fail to explain grading style, workload, or teaching clarity.
-                    </p>
-                  </div>
-                  <div className="contrast-item">
-                    <span className="contrast-label outcome">The SemCheck Solution</span>
-                    <p className="contrast-text outcome">
-                      Granular 9-criterion rubrics analyzed into instantaneous tags and summaries.
-                    </p>
-                  </div>
-                </div>
+                <h3 className="benefit-card-title">9-Point Rubric & Insights</h3>
+                <p className="benefit-card-desc">
+                  Go beyond simple star ratings. See honest breakdowns of clarity, workload, grading fairness, and smart summaries.
+                </p>
               </div>
             </div>
           </div>

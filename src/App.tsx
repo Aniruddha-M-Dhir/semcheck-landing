@@ -2,96 +2,100 @@
 import React, { useState, useMemo } from 'react';
 import { BackgroundParticles } from './BackgroundParticles';
 import logo from './assets/SemCheck_logo.webp';
+import appScreenshot from './assets/app-screenshot.png';
 import './index.css';
 
-// Sample Professor Profiles for Interactive Sandbox
+// Real Professor Profiles from SemCheck App for Interactive Sandbox
 const PROFESSORS = [
   {
-    id: 'vance',
-    name: 'Dr. Elena Vance',
-    department: 'Computer Science & Software Engineering',
-    avatar: 'EV',
-    overallScore: 4.9,
-    reviewCount: 42,
+    id: 'chemouni',
+    name: 'Elisabeth Chemouni',
+    department: 'Mathematics',
+    avatar: 'EC',
+    overallScore: 4.7,
+    reviewCount: 34,
+    course: 'MATH 226',
+    scores: {
+      clarity: 5.0,
+      grading: 5.0,
+      workload: 5.0,
+      organization: 5.0,
+      approachability: 5.0,
+      retake: 5.0,
+    },
+    sampleReview: "She is a great professor if you want to take a chill math class. Clear grading criteria and very approachable.",
+    tags: ['#ChillMathClass', '#ClearLectures', '#FairGrader', '#HighClarity'],
+    summary: "Approachable and organized professor who explains concepts clearly with fair grading and a manageable course pace."
+  },
+  {
+    id: 'puder',
+    name: 'Arno Puder',
+    department: 'Computer Science',
+    avatar: 'AP',
+    overallScore: 4.8,
+    reviewCount: 46,
+    course: 'CSC 413',
     scores: {
       clarity: 4.9,
       grading: 4.8,
-      workload: 3.8,
-      organization: 5.0,
-      approachability: 4.9,
-      retake: 4.9,
-    },
-    sampleReview: "Took CSC 413 this spring. Lectures are brilliantly structured with real production examples. Exams are challenging but 100% fair based on lecture slides.",
-    geminiTags: ['#ClearLectures', '#FairGrader', '#ProjectDriven', '#RealWorldExamples'],
-    geminiSummary: "Highly engaging lecturer with transparent grading standards; weekly lab projects demand steady effort but yield tremendous practical skills."
-  },
-  {
-    id: 'sterling',
-    name: 'Prof. Marcus Sterling',
-    department: 'Economics & Behavioral Finance',
-    avatar: 'MS',
-    overallScore: 4.3,
-    reviewCount: 38,
-    scores: {
-      clarity: 4.4,
-      grading: 4.1,
-      workload: 3.5,
-      organization: 4.6,
-      approachability: 4.2,
-      retake: 4.3,
-    },
-    sampleReview: "Discussion heavy and ties every theory into current market headlines. Keep up with the weekly readings and you will do well on the case studies.",
-    geminiTags: ['#CaseStudies', '#EngagingDiscussions', '#MarketAnalysis', '#ModerateWorkload'],
-    geminiSummary: "Engaging discussions anchored in current financial events; expectations are well documented and problem sets directly prepare you for exams."
-  },
-  {
-    id: 'patel',
-    name: 'Dr. Priya Patel',
-    department: 'Molecular Biology & Genetics',
-    avatar: 'PP',
-    overallScore: 4.7,
-    reviewCount: 29,
-    scores: {
-      clarity: 4.8,
-      grading: 4.5,
       workload: 4.2,
       organization: 4.9,
-      approachability: 4.7,
+      approachability: 4.8,
+      retake: 4.8,
+    },
+    sampleReview: "Great professor for Software Development. The semester projects give you hands-on experience and prepare you for tech interviews.",
+    tags: ['#RealWorldProjects', '#EngagingLectures', '#PracticalSkills', '#FairGrader'],
+    summary: "Challenging but rewarding software engineering curriculum with practical hands-on development experience."
+  },
+  {
+    id: 'kulkarni',
+    name: 'Anagha Kulkarni',
+    department: 'Computer Science',
+    avatar: 'AK',
+    overallScore: 4.6,
+    reviewCount: 39,
+    course: 'CSC 510',
+    scores: {
+      clarity: 4.7,
+      grading: 4.5,
+      workload: 4.0,
+      organization: 4.8,
+      approachability: 4.6,
       retake: 4.6,
     },
-    sampleReview: "Dr. Patel's lab prep modules saved my grade. She holds extra review sessions before every midterm and explains difficult enzyme mechanisms with clarity.",
-    geminiTags: ['#LabFocused', '#HelpfulOfficeHours', '#OrganizedSyllabus', '#Rigorous'],
-    geminiSummary: "Academically rigorous coursework balanced by exceptional faculty support and meticulous lab preparation materials."
+    sampleReview: "Very structured coursework with thorough lab exercises. Gives prompt feedback and holds helpful office hours.",
+    tags: ['#StructuredSyllabus', '#HelpfulLabs', '#PromptFeedback', '#DedicatedMentor'],
+    summary: "Clear academic pacing and dedicated student guidance throughout complex computer science coursework."
   }
 ];
 
-// Pre-set review prompts for AI synthesizer sandbox
+// Pre-set real review prompts for AI insight sandbox
 const AI_SAMPLE_PROMPTS = [
   {
-    title: "Project-heavy with fair rubrics",
-    text: "The three team milestones felt like working at an actual tech startup. Homework was graded within 48 hours with helpful line-by-line comments.",
-    tags: ['#StartupStyle', '#FastGrading', '#ConstructiveFeedback', '#PracticalSkills'],
-    summary: "Simulates industry conditions with rapid turnaround and actionable code reviews."
+    title: "Elisabeth Chemouni — MATH 226",
+    text: "She is a great professor if you want to take a chill math class. Homework directly mirrors exam questions and office hours are very welcoming.",
+    tags: ['#ChillMathClass', '#WelcomingOfficeHours', '#FairGrading', '#HighClarity'],
+    summary: "Patient and encouraging teaching style with clear exam expectations and accessible support."
   },
   {
-    title: "Challenging exams, great office hours",
-    text: "Midterms require deep conceptual understanding, not rote memorization. Go to office hours early; she will whiteboard every question until you get it.",
-    tags: ['#ConceptualExams', '#WhiteboardSessions', '#DedicatedMentor', '#HighLearningValue'],
-    summary: "High exam difficulty offset by highly accessible, personalized tutoring during office hours."
+    title: "Arno Puder — CSC 413",
+    text: "Software Development milestones were challenging but gave real industry-grade experience. Detailed rubrics and constructive feedback on code submissions.",
+    tags: ['#IndustryReady', '#ConstructiveFeedback', '#PracticalCoding', '#GreatLectures'],
+    summary: "Demanding but highly practical coursework that prepares students for real-world software engineering."
   },
   {
-    title: "Light reading, inspiring guest speakers",
-    text: "Very reasonable reading load with weekly reflection journals. Invited industry executives every other Friday which made the course unforgettable.",
-    tags: ['#GuestSpeakers', '#ManageableWorkload', '#InspiringLectures', '#ThoughtfulDiscussions'],
-    summary: "Balanced academic workload enriched by real-world guest lecturers and reflective dialogue."
+    title: "Anagha Kulkarni — CSC 510",
+    text: "Lectures break down complex algorithms into intuitive steps. Weekly assignments are well organized with fast grading turnaround.",
+    tags: ['#ClearAlgorithms', '#OrganizedPacing', '#FastGrading', '#HighLearningValue'],
+    summary: "Clear lectures and rapid homework turnaround create an engaging and structured learning environment."
   }
 ];
 
-// FAQs list
+// FAQs list (Last FAQ removed as requested)
 const FAQ_ITEMS = [
   {
     question: "Can professors or university administrators see who submitted a review?",
-    answer: "No. Cryptographic anonymity is engineered directly into SemCheck's database layer. Your .edu email address is strictly used once via a 6-digit OTP to mint a one-way anonymous cryptographic verification token. Review rows in Supabase are decoupled from user identities via Row-Level Security (RLS) policies. Even our database administrators cannot trace an evaluation back to your email."
+    answer: "No. Cryptographic anonymity is engineered directly into SemCheck's database layer. Your .edu email address is strictly used once via a 6-digit OTP to mint a one-way anonymous cryptographic verification token. Review rows in the cloud database are decoupled from user identities via secure database policies. Even database administrators cannot trace an evaluation back to your email."
   },
   {
     question: "Why do I need to verify with a university .edu email if reviews are anonymous?",
@@ -99,7 +103,7 @@ const FAQ_ITEMS = [
   },
   {
     question: "How is SemCheck different from RateMyProfessors?",
-    answer: "RateMyProfessors is unverified, cluttered with intrusive ads, infested with bots, and relies on crude 1-to-5 star averages. SemCheck is 100% .edu verified, completely ad-free, measures 9 granular pedagogical dimensions (such as grading fairness, clarity, and workload), and harnesses Google Gemini AI to distill hundreds of student reviews into actionable semantic tags and summaries."
+    answer: "RateMyProfessors is unverified, cluttered with intrusive ads, infested with bots, and relies on crude 1-to-5 star averages. SemCheck is 100% .edu verified, completely ad-free, measures 9 granular pedagogical dimensions (such as grading fairness, clarity, and workload), and provides automated AI review tags and summaries."
   },
   {
     question: "What are the 9 scoring dimensions evaluated on SemCheck?",
@@ -107,29 +111,13 @@ const FAQ_ITEMS = [
   },
   {
     question: "Is SemCheck free for students?",
-    answer: "Yes, SemCheck is 100% free forever for verified college students. We do not sell student data, we do not show advertisements, and we do not employ paywalled locks or artificial subscription limits. Academic clarity should be accessible to all students."
-  },
-  {
-    question: "Is there an Android or Web version planned?",
-    answer: "Yes! While SemCheck is natively optimized for iOS today, our Android version and web dashboard are currently in active development. You can save this page or follow our updates to be notified immediately upon release."
+    answer: "Yes, SemCheck is 100% free forever for verified college students. We do not sell student data, we do not show advertisements, and we do not employ paywalls or artificial subscription limits. Academic clarity should be accessible to all students."
   }
 ];
 
 function App() {
   // Mobile Nav toggle state
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  // Hero phone screen interactive state (toggle between Overview & Review Detail)
-  const [phoneScreenMode, setPhoneScreenMode] = useState('overview'); // 'overview' | 'review'
-  const [phoneTransitioning, setPhoneTransitioning] = useState(false);
-
-  const togglePhoneScreen = () => {
-    setPhoneTransitioning(true);
-    setTimeout(() => {
-      setPhoneScreenMode(prev => prev === 'overview' ? 'review' : 'overview');
-      setPhoneTransitioning(false);
-    }, 150);
-  };
 
   // Interactive Sandbox state
   const [selectedProfIndex, setSelectedProfIndex] = useState(0);
@@ -171,7 +159,7 @@ function App() {
     setIsSynthesizing(true);
     setTimeout(() => {
       setIsSynthesizing(false);
-    }, 300);
+    }, 250);
   };
 
   // FAQ Accordion state
@@ -183,13 +171,7 @@ function App() {
 
   return (
     <>
-      {/* Background Mesh Grid & Ambient Glows */}
-      <div className="ambient-grid"></div>
-      <div className="background-glow">
-        <div className="ambient-radial-glow radial-emerald"></div>
-        <div className="ambient-radial-glow radial-indigo"></div>
-        <div className="ambient-radial-glow radial-terracotta"></div>
-      </div>
+      {/* Background Particles: Ticks & Grad Caps */}
       <BackgroundParticles />
 
       {/* ====================================================================
@@ -265,18 +247,17 @@ function App() {
               <div className="hero-badge-row">
                 <img src={logo} alt="SemCheck icon" className="hero-badge-logo" />
                 <span className="hero-badge-text">
-                  The Campus Sanctuary <span className="hero-badge-highlight">• iOS Native</span>
+                  Verified Student Reviews <span className="hero-badge-highlight">• iOS Native</span>
                 </span>
               </div>
 
               <h1 className="hero-editorial-title">
-                Know Before You Enroll. <br className="desktop-only" />
-                The <span className="highlight-accent">Honest</span> Campus Sanctuary.
+                Know before you enroll.
               </h1>
 
               <p className="hero-editorial-sub">
-                Unfiltered, verified professor and course evaluations from real university peers. 
-                9-point multi-axis rubrics, Google Gemini AI sentiment synthesis, and zero spam.
+                Rate your professors and view professor ratings. Unfiltered, verified evaluations 
+                from real students at your campus with 100% cryptographic anonymity.
               </p>
 
               <div className="hero-cta-wrapper">
@@ -311,10 +292,9 @@ function App() {
               </div>
             </div>
 
-            {/* Right Column: 0.85fr Mockup Stage & Floating Clouds */}
+            {/* Right Column: 0.85fr Real App Screenshot Stage & Floating Clouds */}
             <div className="hero-mockup-stage">
-              <div className="mockup-ambient-glow"></div>
-
+              
               {/* Floating Cloud 1: Top-Left */}
               <div className="floating-cloud cloud-1">
                 <div className="cloud-icon emerald">
@@ -332,12 +312,8 @@ function App() {
                   <ion-icon name="sparkles"></ion-icon>
                 </div>
                 <div>
-                  <div className="cloud-text">
-                    {phoneScreenMode === 'overview' ? '9-Point Scoring Rubric' : 'Gemini AI Synthesis'}
-                  </div>
-                  <div className="cloud-sub">
-                    {phoneScreenMode === 'overview' ? 'Clarity, Workload, Fairness' : 'Real-time semantic tags'}
-                  </div>
+                  <div className="cloud-text">9-Point Rating Rubric</div>
+                  <div className="cloud-sub">Clarity, Workload, Fairness</div>
                 </div>
               </div>
 
@@ -347,143 +323,19 @@ function App() {
                   <ion-icon name="lock-closed"></ion-icon>
                 </div>
                 <div>
-                  <div className="cloud-text">Cryptographic Privacy</div>
+                  <div className="cloud-text">Complete Anonymity</div>
                   <div className="cloud-sub">Identity decoupled from review</div>
                 </div>
               </div>
 
-              {/* Central Realistic iPhone Mockup Frame */}
-              <div 
-                className="iphone-frame" 
-                onClick={togglePhoneScreen}
-                title="Tap or click to toggle between Professor Profile and Student Review view"
-              >
-                {/* Dynamic Island */}
-                <div className="iphone-island">
-                  <div className="island-sensor"></div>
-                  <div className="island-camera"></div>
-                </div>
-
+              {/* Central Realistic iPhone Mockup Frame holding real app screenshot */}
+              <div className="iphone-frame">
                 <div className="iphone-screen">
-                  {/* Status Bar */}
-                  <div className="iphone-status-bar">
-                    <span className="status-time">9:41</span>
-                    <div className="status-icons">
-                      <ion-icon name="cellular" style={{ fontSize: '11px' }}></ion-icon>
-                      <ion-icon name="wifi" style={{ fontSize: '11px' }}></ion-icon>
-                      <ion-icon name="battery-full" style={{ fontSize: '12px' }}></ion-icon>
-                    </div>
-                  </div>
-
-                  {/* App Screen Content (Interactive Hotspot) */}
-                  <div className={`app-screen-content ${phoneTransitioning ? 'fade-transition' : ''}`}>
-                    <div className="app-phone-header">
-                      <span className="app-phone-title">
-                        {phoneScreenMode === 'overview' ? 'Professor Scout' : 'Verified Evaluation'}
-                      </span>
-                      <span className="app-phone-badge">SFSU Campus</span>
-                    </div>
-
-                    {phoneScreenMode === 'overview' ? (
-                      /* Mode A: Professor Overview Card */
-                      <>
-                        <div className="prof-mock-card">
-                          <div className="prof-mock-header">
-                            <div className="prof-mock-avatar">EV</div>
-                            <div className="prof-mock-info">
-                              <div className="prof-mock-name">Dr. Elena Vance</div>
-                              <div className="prof-mock-dept">Computer Science</div>
-                            </div>
-                            <div className="prof-mock-score-badge">
-                              <div className="prof-mock-score-val">4.9</div>
-                              <div className="prof-mock-score-sub">/ 5.0</div>
-                            </div>
-                          </div>
-
-                          {/* Mini Rubric Bar List */}
-                          <div className="rubric-mini-list">
-                            <div className="rubric-mini-item">
-                              <span className="rubric-mini-label">Clarity</span>
-                              <div className="rubric-mini-bar-track">
-                                <div className="rubric-mini-bar-fill" style={{ width: '98%' }}></div>
-                              </div>
-                              <span className="rubric-mini-val">4.9</span>
-                            </div>
-
-                            <div className="rubric-mini-item">
-                              <span className="rubric-mini-label">Grading Fairness</span>
-                              <div className="rubric-mini-bar-track">
-                                <div className="rubric-mini-bar-fill" style={{ width: '96%' }}></div>
-                              </div>
-                              <span className="rubric-mini-val">4.8</span>
-                            </div>
-
-                            <div className="rubric-mini-item">
-                              <span className="rubric-mini-label">Organization</span>
-                              <div className="rubric-mini-bar-track">
-                                <div className="rubric-mini-bar-fill" style={{ width: '100%' }}></div>
-                              </div>
-                              <span className="rubric-mini-val">5.0</span>
-                            </div>
-
-                            <div className="rubric-mini-item">
-                              <span className="rubric-mini-label">Workload</span>
-                              <div className="rubric-mini-bar-track">
-                                <div className="rubric-mini-bar-fill" style={{ width: '76%', background: '#F59E0B' }}></div>
-                              </div>
-                              <span className="rubric-mini-val" style={{ color: '#F59E0B' }}>3.8</span>
-                            </div>
-                          </div>
-
-                          <div className="mock-tags-row">
-                            <span className="mock-tag">#ClearLectures</span>
-                            <span className="mock-tag">#FairGrader</span>
-                            <span className="mock-tag">#ProjectDriven</span>
-                          </div>
-                        </div>
-
-                        <div className="mock-hotspot-hint">
-                          <ion-icon name="swap-horizontal"></ion-icon>
-                          <span>Tap phone screen to view review details</span>
-                        </div>
-                      </>
-                    ) : (
-                      /* Mode B: Student Review Detail with AI tags */
-                      <>
-                        <div className="review-mock-card">
-                          <div className="review-mock-header">
-                            <span className="review-verified-pill">
-                              <ion-icon name="checkmark-circle"></ion-icon>
-                              Verified Student
-                            </span>
-                            <span className="review-course-tag">CSC 413 • Spring</span>
-                          </div>
-
-                          <p className="review-mock-text">
-                            "Took CSC 413 with Dr. Vance. Weekly project milestones required steady focus, but her rubric was completely transparent. Midterms directly reflect lectures."
-                          </p>
-
-                          <div className="review-gemini-summary">
-                            <div className="review-gemini-title">Gemini AI Synthesis</div>
-                            <div className="review-gemini-snippet">
-                              Transparent grading standards with high-value technical assignments and rapid feedback.
-                            </div>
-                          </div>
-
-                          <div className="mock-tags-row" style={{ marginTop: '4px' }}>
-                            <span className="mock-tag">#HighClarity</span>
-                            <span className="mock-tag">#TransparentRubrics</span>
-                            <span className="mock-tag">#WouldRetake</span>
-                          </div>
-                        </div>
-
-                        <div className="mock-hotspot-hint">
-                          <ion-icon name="swap-horizontal"></ion-icon>
-                          <span>Tap phone screen to view professor profile</span>
-                        </div>
-                      </>
-                    )}
-                  </div>
+                  <img 
+                    src={appScreenshot} 
+                    alt="SemCheck App Review Details for Elisabeth Chemouni" 
+                    className="iphone-screenshot-img" 
+                  />
                 </div>
               </div>
 
@@ -545,7 +397,7 @@ function App() {
                   <div className="contrast-item">
                     <span className="contrast-label outcome">The SemCheck Solution</span>
                     <p className="contrast-text outcome">
-                      One-way salted verification hash. Supabase Row-Level Security severs your identity from the review forever.
+                      One-way salted verification hash. Secure database policies sever your identity from the review forever.
                     </p>
                   </div>
                 </div>
@@ -567,7 +419,7 @@ function App() {
                   <div className="contrast-item">
                     <span className="contrast-label outcome">The SemCheck Solution</span>
                     <p className="contrast-text outcome">
-                      Granular 9-criterion rubrics synthesized by Google Gemini AI into instantaneous 3-word tags and summaries.
+                      Granular 9-criterion rubrics analyzed into instantaneous tags and summaries.
                     </p>
                   </div>
                 </div>
@@ -585,8 +437,8 @@ function App() {
               <div className="tag-pill terracotta">Interactive Sandbox</div>
               <h2 className="section-title">Test Drive the SemCheck Evaluation Engine</h2>
               <p className="section-subtitle">
-                Experience how our 9-criterion rubric computes dynamic scores and how Google Gemini extracts 
-                actionable semantic tags in real-time.
+                Experience how our 9-criterion rubric computes dynamic scores and how smart tagging extracts 
+                actionable course insights in real-time.
               </p>
             </div>
 
@@ -601,7 +453,7 @@ function App() {
                   >
                     <span className="sandbox-tab-avatar">{prof.avatar}</span>
                     <span>{prof.name}</span>
-                    <span style={{ opacity: 0.6 }}>• {prof.department.split('&')[0]}</span>
+                    <span style={{ opacity: 0.6 }}>• {prof.department} ({prof.course})</span>
                   </button>
                 ))}
               </div>
@@ -613,7 +465,7 @@ function App() {
                   <div className="sandbox-card-header">
                     <div className="sandbox-prof-identity">
                       <h3>{activeProf.name}</h3>
-                      <p>{activeProf.department} • {activeProf.reviewCount} Reviews</p>
+                      <p>{activeProf.department} • {activeProf.course} • {activeProf.reviewCount} Reviews</p>
                     </div>
 
                     <div className="sandbox-score-gauge">
@@ -729,14 +581,14 @@ function App() {
                   </div>
                 </div>
 
-                {/* Right Side: AI Tag Extraction & Synthesis Preview */}
+                {/* Right Side: AI Review Insights Preview */}
                 <div className="sandbox-ai-card">
                   <div className="ai-card-title-row">
                     <span className="ai-card-title">
                       <ion-icon name="sparkles" style={{ color: '#818CF8' }}></ion-icon>
-                      Gemini AI Sentiment Engine
+                      AI Review Insights Engine
                     </span>
-                    <span className="ai-powered-badge">pgvector Embeddings</span>
+                    <span className="ai-powered-badge">Smart Semantic Search</span>
                   </div>
 
                   <div className="ai-sample-prompts">
@@ -755,7 +607,7 @@ function App() {
                   {/* Dynamic Output */}
                   <div className="ai-synthesis-output">
                     <div className="ai-output-header">
-                      {isSynthesizing ? 'Synthesizing with Gemini...' : 'Synthesized AI Insights'}
+                      {isSynthesizing ? 'Analyzing Review...' : 'Synthesized Course Insights'}
                     </div>
 
                     <div className="ai-tags-generated">
@@ -806,7 +658,7 @@ function App() {
                 <h3 className="step-title">Scout Professors & Syllabi</h3>
                 <p className="step-desc">
                   Filter by department, course number, or faculty name. Inspect granular 9-axis score distributions 
-                  and Gemini AI sentiment summaries before enrolling.
+                  and automated AI review summaries before enrolling.
                 </p>
                 <div className="step-tag-pill">Sub-15ms Search</div>
               </div>
@@ -858,16 +710,16 @@ function App() {
                   <div className="rubric-meter-item">
                     <div className="meter-header">
                       <span>Clarity</span>
-                      <span>4.9</span>
+                      <span>5.0</span>
                     </div>
-                    <div className="meter-track"><div className="meter-fill" style={{ width: '98%' }}></div></div>
+                    <div className="meter-track"><div className="meter-fill" style={{ width: '100%' }}></div></div>
                   </div>
                   <div className="rubric-meter-item">
                     <div className="meter-header">
                       <span>Grading Fairness</span>
-                      <span>4.8</span>
+                      <span>5.0</span>
                     </div>
-                    <div className="meter-track"><div className="meter-fill" style={{ width: '96%' }}></div></div>
+                    <div className="meter-track"><div className="meter-fill" style={{ width: '100%' }}></div></div>
                   </div>
                   <div className="rubric-meter-item">
                     <div className="meter-header">
@@ -879,45 +731,45 @@ function App() {
                   <div className="rubric-meter-item">
                     <div className="meter-header">
                       <span>Approachability</span>
-                      <span>4.7</span>
+                      <span>5.0</span>
                     </div>
-                    <div className="meter-track"><div className="meter-fill" style={{ width: '94%' }}></div></div>
+                    <div className="meter-track"><div className="meter-fill" style={{ width: '100%' }}></div></div>
                   </div>
                   <div className="rubric-meter-item">
                     <div className="meter-header">
                       <span>Learning Value</span>
-                      <span>4.9</span>
+                      <span>4.8</span>
                     </div>
-                    <div className="meter-track"><div className="meter-fill" style={{ width: '98%' }}></div></div>
+                    <div className="meter-track"><div className="meter-fill" style={{ width: '96%' }}></div></div>
                   </div>
                   <div className="rubric-meter-item">
                     <div className="meter-header">
                       <span>Workload Gauge</span>
-                      <span style={{ color: '#F59E0B' }}>3.7</span>
+                      <span style={{ color: '#10B981' }}>5.0</span>
                     </div>
-                    <div className="meter-track"><div className="meter-fill" style={{ width: '74%', background: '#F59E0B' }}></div></div>
+                    <div className="meter-track"><div className="meter-fill" style={{ width: '100%', background: '#10B981' }}></div></div>
                   </div>
                 </div>
               </div>
 
-              {/* Bento 2: Google Gemini AI Semantic Search */}
+              {/* Bento 2: Automated AI Tagging & Search */}
               <div className="bento-card">
                 <div>
                   <div className="bento-badge-top indigo">
                     <ion-icon name="sparkles"></ion-icon>
-                    AI Semantic Engine
+                    AI Review Insights
                   </div>
-                  <h3 className="bento-title">Gemini AI Synthesis</h3>
+                  <h3 className="bento-title">Smart Review Summaries</h3>
                   <p className="bento-desc">
-                    Powered by Google Gemini and Supabase pgvector embeddings. Reviews are automatically distilled into concise 3-word tags and objective executive summaries.
+                    Powered by automated AI analysis. Reviews are quickly distilled into concise 3-word tags and objective executive summaries to help you choose courses faster.
                   </p>
                 </div>
 
                 <div className="bento-code-box">
-                  <div><span className="keyword">const</span> tags = <span className="highlight">await gemini.extract()</span>;</div>
+                  <div><span className="keyword">const</span> tags = <span className="highlight">await extractTags(review)</span>;</div>
                   <div>// Extracted tags:</div>
-                  <div className="highlight">['#FairGrader', '#ClearExams']</div>
-                  <div style={{ marginTop: '4px', opacity: 0.6 }}>// 1536-dim vector embedded</div>
+                  <div className="highlight">['#ChillMathClass', '#FairGrader']</div>
+                  <div style={{ marginTop: '4px', opacity: 0.6 }}>// Instant semantic indexing</div>
                 </div>
               </div>
 
@@ -930,12 +782,12 @@ function App() {
                   </div>
                   <h3 className="bento-title">Anonymity by Architecture</h3>
                   <p className="bento-desc">
-                    Your university email verifies active enrollment, then disconnects. PostgreSQL Row-Level Security ensures your user ID is never queried alongside public review rows.
+                    Your university email verifies active enrollment, then disconnects. Database-level security policies ensure your user ID is never queried alongside public review rows.
                   </p>
                 </div>
                 <div style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', gap: '8px', color: '#34D399', fontSize: '0.85rem', fontWeight: '600' }}>
                   <ion-icon name="checkmark-done-circle" style={{ fontSize: '18px' }}></ion-icon>
-                  <span>RLS Enforced Anonymity</span>
+                  <span>Encrypted Cloud Database Security</span>
                 </div>
               </div>
 
@@ -948,12 +800,12 @@ function App() {
                   </div>
                   <h3 className="bento-title">Sub-15ms Scout Search</h3>
                   <p className="bento-desc">
-                    PostgreSQL GIN full-text indexes and Shopify FlashList on iOS deliver instantaneous search across thousands of faculty members and courses without dropped frames.
+                    High-performance full-text database indexes deliver instantaneous search across faculty and courses without dropped frames.
                   </p>
                 </div>
                 <div style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', gap: '8px', color: '#818CF8', fontSize: '0.85rem', fontWeight: '600' }}>
                   <ion-icon name="speedometer" style={{ fontSize: '18px' }}></ion-icon>
-                  <span>GIN Indexed Query Engine</span>
+                  <span>Instant Query Engine</span>
                 </div>
               </div>
 
@@ -962,7 +814,7 @@ function App() {
                 <div>
                   <div className="bento-badge-top indigo">
                     <ion-icon name="phone-portrait"></ion-icon>
-                    Sanctuary UX
+                    Clean Interface
                   </div>
                   <h3 className="bento-title">Native iOS & Zero Ads</h3>
                   <p className="bento-desc">
@@ -971,7 +823,7 @@ function App() {
                 </div>
                 <div style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', gap: '8px', color: '#34D399', fontSize: '0.85rem', fontWeight: '600' }}>
                   <ion-icon name="shield" style={{ fontSize: '18px' }}></ion-icon>
-                  <span>Pure Student Sanctuary</span>
+                  <span>Pure Student Community</span>
                 </div>
               </div>
 
@@ -998,7 +850,7 @@ function App() {
 
                 <div className="pricing-tier-badge">
                   <ion-icon name="school"></ion-icon>
-                  Campus Sanctuary • Student Edition
+                  Student Edition • 100% Free
                 </div>
 
                 <div className="pricing-amount-row">
@@ -1034,7 +886,7 @@ function App() {
                         <polyline points="20 6 9 17 4 12"></polyline>
                       </svg>
                     </div>
-                    <span>Google Gemini AI sentiment tags & executive summaries</span>
+                    <span>Automated AI review tags & executive summaries</span>
                   </li>
                   <li className="checklist-item">
                     <div className="checklist-check-icon">
@@ -1124,7 +976,7 @@ function App() {
               </h2>
 
               <p className="final-cta-sub">
-                Join thousands of verified students making confident, informed course decisions every term.
+                Rate your professors and view professor ratings. Join thousands of verified students making confident, informed course decisions every term.
               </p>
 
               <div className="final-cta-btn-row">
@@ -1161,7 +1013,7 @@ function App() {
               <span className="footer-wordmark">SemCheck</span>
             </div>
             <p className="footer-tagline">
-              Know before you enroll. The anonymous, verified professor review sanctuary built for college students.
+              Know before you enroll. The anonymous, verified professor review platform built for college students.
             </p>
           </div>
 
@@ -1171,7 +1023,7 @@ function App() {
               <li><a href="#benefits">Why SemCheck</a></li>
               <li><a href="#experience">Live Sandbox</a></li>
               <li><a href="#how-it-works">How It Works</a></li>
-              <li><a href="#bento">Engineered Features</a></li>
+              <li><a href="#bento">Features</a></li>
               <li><a href="#pricing">Transparent Access</a></li>
             </ul>
           </div>

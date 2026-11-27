@@ -111,7 +111,7 @@ const FAQ_ITEMS = [
   },
   {
     question: "Is SemCheck free for students?",
-    answer: "Yes, SemCheck is 100% free forever for verified college students. We do not sell student data, we do not show advertisements, and we do not employ paywalls or artificial subscription limits. Academic clarity should be accessible to all students."
+    answer: "Yes, SemCheck is 100% free forever. We do not sell user data, we do not show advertisements, and we do not employ paywalls or artificial subscription limits. Academic clarity should be accessible to all."
   }
 ];
 
@@ -804,7 +804,7 @@ function App() {
           <div className="section-container">
             <div className="section-header">
               <div className="tag-pill">Transparent Access</div>
-              <h2 className="section-title">Free for Every College Student. Forever.</h2>
+              <h2 className="section-title">Free Forever.</h2>
               <p className="section-subtitle">
                 Essential course intelligence should never be locked behind paywalls, surprise subscriptions, or sponsored ad networks.
               </p>
@@ -979,7 +979,7 @@ function App() {
               <span className="footer-wordmark">SemCheck</span>
             </div>
             <p className="footer-tagline">
-              Know before you enroll. The anonymous, verified professor review platform built for college students.
+              Know before you enroll. The anonymous, verified professor review platform.
             </p>
           </div>
 
@@ -1008,7 +1008,6 @@ function App() {
             <h4 className="footer-col-title">Connect</h4>
             <ul className="footer-links-list">
               <li><a href="mailto:verify@aniruddhamdhir.dev">Contact Support</a></li>
-              <li><a href="https://github.com/aniruddha-m-dhir/semcheck" target="_blank" rel="noopener noreferrer">GitHub Repository</a></li>
               <li><a href="#download">iOS App Store</a></li>
             </ul>
           </div>
@@ -1017,7 +1016,7 @@ function App() {
         <div className="footer-bottom-bar">
           <p>&copy; 2026 SemCheck. All rights reserved.</p>
           <p className="footer-attribution">
-            Handcrafted with obsession by Aniruddha Dhir for college students everywhere.
+            Handcrafted with obsession by Aniruddha Dhir.
           </p>
         </div>
       </footer>

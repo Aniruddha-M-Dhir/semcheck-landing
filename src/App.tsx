@@ -333,7 +333,7 @@ function App() {
                 <div className="iphone-screen">
                   <img 
                     src={appScreenshot} 
-                    alt="SemCheck App Review Details for Elisabeth Chemouni" 
+                    alt="SemCheck App Review Details for Professor X" 
                     className="iphone-screenshot-img" 
                   />
                 </div>
